@@ -106,7 +106,7 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 
         if ((uintptr_t) info->si_addr >= p->orig_addr + p->mapped_size)
             continue;
-
+#ifndef __LP64__ // Keep the 32 bit version
         // XXX we abuse the r[] array here.
         for (int i = 0; i < 15; i++) {
             uintptr_t rv = uap->uc_mcontext->__ss.__r[i];
@@ -120,7 +120,21 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 #endif
             }
         }
-
+#else
+		for (int i = 0; i < 31; i++) {
+			uintptr_t rv = uap->uc_mcontext->__ss.__x[i];
+			if (rv == (uintptr_t) info->si_addr) {
+				if (p->new_addr > p->orig_addr)
+					
+					uap->uc_mcontext->__ss.__x[i] -= p->new_addr - p->orig_addr;
+				else
+					uap->uc_mcontext->__ss.__x[i] += p->orig_addr - p->new_addr;
+#if 0
+				NSLog(@"Rewrite: %p -> %p", info->si_addr, (void *) uap->uc_mcontext->__ss.__x[i]);
+#endif
+			}
+		}
+#endif
         uintptr_t rv = uap->uc_mcontext->__ss.__lr;
         if (rv == (uintptr_t) info->si_addr) {
             uap->uc_mcontext->__ss.__lr += p->new_addr - p->orig_addr;
