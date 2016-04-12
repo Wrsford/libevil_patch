@@ -26,5 +26,6 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-void evil_init (void);
-kern_return_t evil_override_ptr (void *function, const void *newFunction, void **originalRentry);
+extern void evil_init (void);
+extern kern_return_t evil_override_ptr (void *function, const void *newFunction, void **originalRentry);
+extern void evil_fallback_signal_handler(void (*handler)(int signo));

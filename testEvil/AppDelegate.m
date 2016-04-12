@@ -31,25 +31,32 @@
 
 void (*orig_NSLog)(NSString *fmt, ...) = NULL;
 
-void my_NSLog (NSString *fmt, ...) {
-    orig_NSLog(@"I'm in your computers, patching your strings ...");
 
-    NSString *newFmt = [NSString stringWithFormat: @"[PATCHED]: %@", fmt];
-    
-    va_list ap;
-    va_start(ap, fmt);
-    NSLogv(newFmt, ap);
-    va_end(ap);
+void myFallbackHandler(int signo) {
+	printf("1. Fallback hit with signal: %d\n", signo);
+	abort();
+}
+
+void my_NSLog (NSString *fmt, ...) {
+	orig_NSLog(@"I'm in your computers, patching your strings ...");
+	
+	NSString *newFmt = [NSString stringWithFormat: @"[PATCHED]: %@", fmt];
+	
+	va_list ap;
+	va_start(ap, fmt);
+	NSLogv(newFmt, ap);
+	va_end(ap);
 }
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     evil_init();
-    
+    NSLog(@"Please print this sir prepatch");
+	evil_fallback_signal_handler(&myFallbackHandler);
     evil_override_ptr(NSLog, my_NSLog, (void **) &orig_NSLog);
     NSLog(@"Please print this sir");
-
+	
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
