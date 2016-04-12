@@ -20,6 +20,17 @@
 		054A294716AB85D100C2B9B6 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054A294616AB85D100C2B9B6 /* Default@2x.png */; };
 		054A294916AB85D100C2B9B6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054A294816AB85D100C2B9B6 /* Default-568h@2x.png */; };
 		054A294F16AB862A00C2B9B6 /* liblibevil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 054A290116AB71D400C2B9B6 /* liblibevil.a */; };
+		FCAC1CA51CBD70D3004B6BC5 /* PureEvilKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CA41CBD70D3004B6BC5 /* PureEvilKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FCAC1CAC1CBD70D4004B6BC5 /* PureEvilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */; };
+		FCAC1CB31CBD70D4004B6BC5 /* PureEvilKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CB21CBD70D4004B6BC5 /* PureEvilKitTests.m */; };
+		FCAC1CB71CBD70D4004B6BC5 /* PureEvilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */; };
+		FCAC1CB81CBD70D4004B6BC5 /* PureEvilKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FCAC1CC21CBD7114004B6BC5 /* PEManager.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CC01CBD7114004B6BC5 /* PEManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FCAC1CC31CBD7114004B6BC5 /* PEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CC11CBD7114004B6BC5 /* PEManager.m */; };
+		FCAC1CC61CBD7143004B6BC5 /* PEPatch.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CC41CBD7143004B6BC5 /* PEPatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FCAC1CC71CBD7143004B6BC5 /* PEPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CC51CBD7143004B6BC5 /* PEPatch.m */; };
+		FCAC1CCA1CBD764C004B6BC5 /* PureEvil.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CC81CBD764C004B6BC5 /* PureEvil.h */; };
+		FCAC1CCB1CBD764C004B6BC5 /* PureEvil.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CC91CBD764C004B6BC5 /* PureEvil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +40,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 054A290016AB71D400C2B9B6;
 			remoteInfo = libevil;
+		};
+		FCAC1CAD1CBD70D4004B6BC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCAC1CA11CBD70D3004B6BC5;
+			remoteInfo = PureEvilKit;
+		};
+		FCAC1CAF1CBD70D4004B6BC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 054A293116AB85D100C2B9B6;
+			remoteInfo = testEvil;
+		};
+		FCAC1CB51CBD70D4004B6BC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCAC1CA11CBD70D3004B6BC5;
+			remoteInfo = PureEvilKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -41,6 +73,17 @@
 			files = (
 				054A290A16AB71D400C2B9B6 /* libevil.h in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCAC1CBC1CBD70D4004B6BC5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FCAC1CB81CBD70D4004B6BC5 /* PureEvilKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -64,6 +107,18 @@
 		054A294416AB85D100C2B9B6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		054A294616AB85D100C2B9B6 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		054A294816AB85D100C2B9B6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PureEvilKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCAC1CA41CBD70D3004B6BC5 /* PureEvilKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PureEvilKit.h; sourceTree = "<group>"; };
+		FCAC1CA61CBD70D3004B6BC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCAC1CAB1CBD70D4004B6BC5 /* PureEvilKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PureEvilKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCAC1CB21CBD70D4004B6BC5 /* PureEvilKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PureEvilKitTests.m; sourceTree = "<group>"; };
+		FCAC1CB41CBD70D4004B6BC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCAC1CC01CBD7114004B6BC5 /* PEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEManager.h; sourceTree = "<group>"; };
+		FCAC1CC11CBD7114004B6BC5 /* PEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEManager.m; sourceTree = "<group>"; };
+		FCAC1CC41CBD7143004B6BC5 /* PEPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PEPatch.h; sourceTree = "<group>"; };
+		FCAC1CC51CBD7143004B6BC5 /* PEPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEPatch.m; sourceTree = "<group>"; };
+		FCAC1CC81CBD764C004B6BC5 /* PureEvil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureEvil.h; sourceTree = "<group>"; };
+		FCAC1CC91CBD764C004B6BC5 /* PureEvil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PureEvil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +135,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				054A293416AB85D100C2B9B6 /* UIKit.framework in Frameworks */,
+				FCAC1CB71CBD70D4004B6BC5 /* PureEvilKit.framework in Frameworks */,
 				054A293516AB85D100C2B9B6 /* Foundation.framework in Frameworks */,
 				054A293716AB85D100C2B9B6 /* CoreGraphics.framework in Frameworks */,
 				054A294F16AB862A00C2B9B6 /* liblibevil.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCAC1C9E1CBD70D3004B6BC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCAC1CA81CBD70D4004B6BC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCAC1CAC1CBD70D4004B6BC5 /* PureEvilKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +165,8 @@
 			children = (
 				054A290616AB71D400C2B9B6 /* libevil */,
 				054A293816AB85D100C2B9B6 /* testEvil */,
+				FCAC1CA31CBD70D3004B6BC5 /* PureEvilKit */,
+				FCAC1CB11CBD70D4004B6BC5 /* PureEvilKitTests */,
 				054A290316AB71D400C2B9B6 /* Frameworks */,
 				054A290216AB71D400C2B9B6 /* Products */,
 			);
@@ -104,6 +177,8 @@
 			children = (
 				054A290116AB71D400C2B9B6 /* liblibevil.a */,
 				054A293216AB85D100C2B9B6 /* testEvil.app */,
+				FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */,
+				FCAC1CAB1CBD70D4004B6BC5 /* PureEvilKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,7 +236,45 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FCAC1CA31CBD70D3004B6BC5 /* PureEvilKit */ = {
+			isa = PBXGroup;
+			children = (
+				FCAC1CA41CBD70D3004B6BC5 /* PureEvilKit.h */,
+				FCAC1CC41CBD7143004B6BC5 /* PEPatch.h */,
+				FCAC1CC51CBD7143004B6BC5 /* PEPatch.m */,
+				FCAC1CC01CBD7114004B6BC5 /* PEManager.h */,
+				FCAC1CC11CBD7114004B6BC5 /* PEManager.m */,
+				FCAC1CC81CBD764C004B6BC5 /* PureEvil.h */,
+				FCAC1CC91CBD764C004B6BC5 /* PureEvil.m */,
+				FCAC1CA61CBD70D3004B6BC5 /* Info.plist */,
+			);
+			path = PureEvilKit;
+			sourceTree = "<group>";
+		};
+		FCAC1CB11CBD70D4004B6BC5 /* PureEvilKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				FCAC1CB21CBD70D4004B6BC5 /* PureEvilKitTests.m */,
+				FCAC1CB41CBD70D4004B6BC5 /* Info.plist */,
+			);
+			path = PureEvilKitTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FCAC1C9F1CBD70D3004B6BC5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCAC1CCA1CBD764C004B6BC5 /* PureEvil.h in Headers */,
+				FCAC1CC61CBD7143004B6BC5 /* PEPatch.h in Headers */,
+				FCAC1CC21CBD7114004B6BC5 /* PEManager.h in Headers */,
+				FCAC1CA51CBD70D3004B6BC5 /* PureEvilKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		054A290016AB71D400C2B9B6 /* libevil */ = {
@@ -188,16 +301,55 @@
 				054A292E16AB85D100C2B9B6 /* Sources */,
 				054A292F16AB85D100C2B9B6 /* Frameworks */,
 				054A293016AB85D100C2B9B6 /* Resources */,
+				FCAC1CBC1CBD70D4004B6BC5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				054A294E16AB862500C2B9B6 /* PBXTargetDependency */,
+				FCAC1CB61CBD70D4004B6BC5 /* PBXTargetDependency */,
 			);
 			name = testEvil;
 			productName = testEvil;
 			productReference = 054A293216AB85D100C2B9B6 /* testEvil.app */;
 			productType = "com.apple.product-type.application";
+		};
+		FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCAC1CB91CBD70D4004B6BC5 /* Build configuration list for PBXNativeTarget "PureEvilKit" */;
+			buildPhases = (
+				FCAC1C9D1CBD70D3004B6BC5 /* Sources */,
+				FCAC1C9E1CBD70D3004B6BC5 /* Frameworks */,
+				FCAC1C9F1CBD70D3004B6BC5 /* Headers */,
+				FCAC1CA01CBD70D3004B6BC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PureEvilKit;
+			productName = PureEvilKit;
+			productReference = FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FCAC1CAA1CBD70D4004B6BC5 /* PureEvilKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCAC1CBD1CBD70D4004B6BC5 /* Build configuration list for PBXNativeTarget "PureEvilKitTests" */;
+			buildPhases = (
+				FCAC1CA71CBD70D4004B6BC5 /* Sources */,
+				FCAC1CA81CBD70D4004B6BC5 /* Frameworks */,
+				FCAC1CA91CBD70D4004B6BC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCAC1CAE1CBD70D4004B6BC5 /* PBXTargetDependency */,
+				FCAC1CB01CBD70D4004B6BC5 /* PBXTargetDependency */,
+			);
+			name = PureEvilKitTests;
+			productName = PureEvilKitTests;
+			productReference = FCAC1CAB1CBD70D4004B6BC5 /* PureEvilKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -207,6 +359,15 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Landon Fuller";
+				TargetAttributes = {
+					FCAC1CA11CBD70D3004B6BC5 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					FCAC1CAA1CBD70D4004B6BC5 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 054A293116AB85D100C2B9B6;
+					};
+				};
 			};
 			buildConfigurationList = 054A28FB16AB71D400C2B9B6 /* Build configuration list for PBXProject "libevil" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -222,6 +383,8 @@
 			targets = (
 				054A290016AB71D400C2B9B6 /* libevil */,
 				054A293116AB85D100C2B9B6 /* testEvil */,
+				FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */,
+				FCAC1CAA1CBD70D4004B6BC5 /* PureEvilKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +398,20 @@
 				054A294516AB85D100C2B9B6 /* Default.png in Resources */,
 				054A294716AB85D100C2B9B6 /* Default@2x.png in Resources */,
 				054A294916AB85D100C2B9B6 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCAC1CA01CBD70D3004B6BC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCAC1CA91CBD70D4004B6BC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +435,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCAC1C9D1CBD70D3004B6BC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCAC1CCB1CBD764C004B6BC5 /* PureEvil.m in Sources */,
+				FCAC1CC31CBD7114004B6BC5 /* PEManager.m in Sources */,
+				FCAC1CC71CBD7143004B6BC5 /* PEPatch.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCAC1CA71CBD70D4004B6BC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCAC1CB31CBD70D4004B6BC5 /* PureEvilKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -265,6 +460,21 @@
 			isa = PBXTargetDependency;
 			target = 054A290016AB71D400C2B9B6 /* libevil */;
 			targetProxy = 054A294D16AB862500C2B9B6 /* PBXContainerItemProxy */;
+		};
+		FCAC1CAE1CBD70D4004B6BC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */;
+			targetProxy = FCAC1CAD1CBD70D4004B6BC5 /* PBXContainerItemProxy */;
+		};
+		FCAC1CB01CBD70D4004B6BC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 054A293116AB85D100C2B9B6 /* testEvil */;
+			targetProxy = FCAC1CAF1CBD70D4004B6BC5 /* PBXContainerItemProxy */;
+		};
+		FCAC1CB61CBD70D4004B6BC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */;
+			targetProxy = FCAC1CB51CBD70D4004B6BC5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -362,6 +572,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "testEvil/testEvil-Prefix.pch";
 				INFOPLIST_FILE = "testEvil/testEvil-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -380,11 +591,161 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "testEvil/testEvil-Prefix.pch";
 				INFOPLIST_FILE = "testEvil/testEvil-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		FCAC1CBA1CBD70D4004B6BC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FCAC1CBB1CBD70D4004B6BC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FCAC1CBE1CBD70D4004B6BC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/testEvil.app/testEvil";
+			};
+			name = Debug;
+		};
+		FCAC1CBF1CBD70D4004B6BC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/testEvil.app/testEvil";
 			};
 			name = Release;
 		};
@@ -417,6 +778,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FCAC1CB91CBD70D4004B6BC5 /* Build configuration list for PBXNativeTarget "PureEvilKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCAC1CBA1CBD70D4004B6BC5 /* Debug */,
+				FCAC1CBB1CBD70D4004B6BC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FCAC1CBD1CBD70D4004B6BC5 /* Build configuration list for PBXNativeTarget "PureEvilKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCAC1CBE1CBD70D4004B6BC5 /* Debug */,
+				FCAC1CBF1CBD70D4004B6BC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

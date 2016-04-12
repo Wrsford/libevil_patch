@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>PureEvilKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>libevil.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,16 @@
 			<true/>
 		</dict>
 		<key>054A293116AB85D100C2B9B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCAC1CA11CBD70D3004B6BC5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCAC1CAA1CBD70D4004B6BC5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
