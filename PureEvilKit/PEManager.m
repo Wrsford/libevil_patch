@@ -7,9 +7,18 @@
 //
 
 #import "PEManager.h"
+#import "PEPatch.h"
 #import "PureEvil.h"
+#import <signal.h>
+#import <unistd.h>
+#import <dlfcn.h>
 
-extern kern_return_t evil_override_ptr (void *function, const void *newFunction, void **originalRentry);
+#import <sys/mman.h>
+
+#import <sys/ucontext.h>
+
+#import <mach/mach.h>
+#import <mach-o/loader.h>
 
 PEManager* sharedEvil;
 
@@ -19,6 +28,7 @@ PEManager* sharedEvil;
 {
 	self = [super init];
 	
+	self.patches = [NSMutableArray new];
 	struct sigaction act;
 	memset(&act, 0, sizeof(act));
 	act.sa_sigaction = page_mapper;
@@ -45,14 +55,18 @@ PEManager* sharedEvil;
 	return sharedEvil;
 }
 
+extern kern_return_t evil_override_ptr (void *function, const void *newFunction, void **originalRentry);
 + (void *)overrideFunction:(void *)victimFunction newFunction:(void *)newFunction {
-	void *original;
-	evil_override_ptr(victimFunction, newFunction, &original);
+	void (*original)() = NULL;
+	evil_override_ptr(victimFunction, newFunction,(void **) &original);
+	//NSLog(@"Returning original pointer...");
 	return original;
 }
 
 + (void)addPatch:(PEPatch *)patch {
 	[[PEManager sharedEvil].patches addObject:patch];
 }
+
+
 
 @end

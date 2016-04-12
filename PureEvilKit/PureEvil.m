@@ -107,7 +107,11 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 #endif
 
 #ifdef EVIL_INTEL32
-static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
+void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
+	PEManager *evil = [PEManager sharedEvil];
+	NSUInteger patch_count = evil.patches.count;
+	NSArray *patches = evil.patches;
+	
 	ucontext_t *uap = uapVoid;
 	typeof(uap->uc_mcontext) ctx = uap->uc_mcontext;
 	
@@ -115,19 +119,17 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	unsigned int	*eip = &ctx->__ss.__eip;
 	
 	unsigned int pc = *eip;
-	
-	if (pc == (typeof(pc)) info->si_addr) {
-		for (int i = 0; i < patch_count; i++) {
-			if (patches[i].orig_fptr_nthumb == pc) {
-				*eip = (uintptr_t) patches[i].new_fptr;
+	if (pc == (uintptr_t) info->si_addr) {
+		for (PEPatch *patch in evil.patches) {
+			if (patch.originalFunctionPointer_nthumb == pc) {
+				*eip = (uintptr_t) patch.newFunctionPointer;
 				return;
 			}
 		}
 		
-		for (int i = 0; i < patch_count; i++) {
-			struct patch *p = &patches[i];
-			if (pc >= p->orig_addr && pc < (p->orig_addr + p->mapped_size)) {
-				*eip = p->new_addr + (pc - p->orig_addr);
+		for (PEPatch *patch in evil.patches) {
+			if (pc >= patch.originalAddress && pc < (patch.originalAddress + patch.mappedSize)) {
+				*eip = patch.newAddress + (pc - patch.originalAddress);
 				return;
 			}
 		}
@@ -135,36 +137,25 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	
 	BOOL didMatchPatch = false;
 	
+	
 	// This is six kinds of wrong; we're just rewriting any registers that match the si_addr, and
 	// are pointed into now-dead pages. The danger here ought to be obvious.
-	for (int i = 0; i < patch_count; i++) {
-		struct patch *p = &patches[i];
-		
-		if ((uintptr_t) info->si_addr < p->orig_addr)
+	for (PEPatch *patch in evil.patches) {
+		if ((uintptr_t) info->si_addr < patch.originalAddress)
 			continue;
 		
-		if ((uintptr_t) info->si_addr >= p->orig_addr + p->mapped_size)
+		if ((uintptr_t) info->si_addr >= patch.originalAddress + patch.mappedSize)
 			continue;
 		
 		// XXX we abuse the r[] array here.
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 15; i++) {
 			uintptr_t rv = (eax)[i];
+			
 			if (rv == (uintptr_t) info->si_addr) {
-				if (p->new_addr > p->orig_addr)
-					(eax)[i] -= p->new_addr - p->orig_addr;
+				if (patch.newAddress > patch.originalAddress)
+					(eax)[i] -= patch.newAddress - patch.originalAddress;
 				else
-					(eax)[i] += p->orig_addr - p->new_addr;
-				didMatchPatch = true;
-			}
-		}
-		
-		for (int i = 1; i <= 5; i++) {
-			uintptr_t rv = (eax)[i];
-			if (rv == (uintptr_t) info->si_addr) {
-				if (p->new_addr > p->orig_addr)
-					(eip)[i] -= p->new_addr - p->orig_addr;
-				else
-					(eip)[i] += p->orig_addr - p->new_addr;
+					(eax)[i] += patch.originalAddress - patch.newAddress;
 				didMatchPatch = true;
 			}
 		}
@@ -179,10 +170,10 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 		//		}
 	}
 	
-	if (!didMatchPatch && fallbackHandler)
-	{
-		fallbackHandler(signo);
-	}
+	//	if (!didMatchPatch && fallbackHandler)
+	//	{
+	//		fallbackHandler(signo);
+	//	}
 	
 	return;
 }
@@ -348,6 +339,7 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 #endif
 
 
+
 BOOL macho_iterate_segments (const void *header, void (^block)(const char segname[16], vm_address_t vmaddr, vm_size_t vmsize, BOOL *cont)) {
 	const struct mach_header *header32 = (const struct mach_header *) header;
 	const struct mach_header_64 *header64 = (const struct mach_header_64 *) header;
@@ -371,7 +363,7 @@ BOOL macho_iterate_segments (const void *header, void (^block)(const char segnam
 			break;
 			
 		default:
-			NSLog(@"Invalid Mach-O header magic value: %x", header32->magic);
+			//NSLog(@"Invalid Mach-O header magic value: %x", header32->magic);
 			return false;
 	}
 	
@@ -412,7 +404,7 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 	/* Determine the Mach-O image and size. */
 	Dl_info dlinfo;
 	if (dladdr(function, &dlinfo) == 0) {
-		NSLog(@"dladdr() failed: %s", dlerror());
+		//NSLog(@"dladdr() failed: %s", dlerror());
 		return KERN_FAILURE;
 	}
 	
@@ -440,20 +432,22 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 	vm_address_t image_size = image_end - image_addr;
 	
 	if (!ret) {
-		NSLog(@"Failed parsing Mach-O header");
+		//NSLog(@"Failed parsing Mach-O header");
 		return KERN_FAILURE;
 	}
 	
 	/* Allocate a single contigious block large enough for our purposes */
 	vm_address_t target = 0x0;
+	//NSLog(@"image_size: %lu", image_size);
 	kt = vm_allocate(mach_task_self(), &target, image_size, VM_FLAGS_ANYWHERE);
 	if (kt != KERN_SUCCESS) {
-		NSLog(@"Failed reserving sufficient space");
+		//NSLog(@"Failed reserving sufficient space");
 		return KERN_FAILURE;
 	}
 	
 	/* Remap the segments into place */
 	macho_iterate_segments(dlinfo.dli_fbase, ^(const char segname[16], vm_address_t vmaddr, vm_size_t vmsize, BOOL *cont) {
+		//NSLog(@"Iterating segs. vmsize: %lu", vmsize);
 		if (vmsize == 0)
 			return;
 		
@@ -461,6 +455,7 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 		vm_address_t seg_target = target + (seg_source - image_addr);
 		
 		vm_prot_t cprot, mprot;
+		//NSLog(@"Remapping...");
 		kt = vm_remap(mach_task_self(),
 					  &seg_target,
 					  vmsize,
@@ -472,6 +467,7 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 					  &cprot,
 					  &mprot,
 					  VM_INHERIT_SHARE);
+		//NSLog(@"Done remapping.");
 		if (kt != KERN_SUCCESS) {
 			*cont = false;
 			return;
@@ -479,10 +475,11 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 	});
 	
 	if (kt != KERN_SUCCESS) {
-		NSLog(@"Failed to remap pages: %x", kt);
+		//NSLog(@"Failed to remap pages: %x", kt);
 		return kt;
 	}
 	
+	//NSLog(@"Creating patch...");
 	PEPatch *patch = [PEPatch new];
 	patch.originalAddress = image_addr;
 	patch.newAddress = target;
@@ -491,8 +488,11 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 	patch.originalFunctionPointer = (uintptr_t) function;
 	patch.originalFunctionPointer_nthumb = ((uintptr_t) function) & ~1;
 	patch.newFunctionPointer = (vm_address_t) newFunction;
+	//NSLog(@"Patch created.");
 	
-	[[PEManager sharedEvil].patches addObject:patch];
+	//NSLog(@"Adding patch.");
+	[PEManager addPatch:patch];
+	//NSLog(@"Patch added.");
 	
 	// For whatever reason we can't just remove PROT_WRITE with mprotect. It
 	// succeeds, but then doesn't do anything. So instead, we overwrite the
@@ -501,15 +501,18 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 	// probably fix that by allocating elsewhere, setting permissions, and remapping in,
 	// or by mapping in the NULL page.
 #if 1
-	// vm_deallocate(mach_task_self(), page, PAGE_SIZE);
-	
-	kt = vm_allocate(mach_task_self(), &page, PAGE_SIZE, VM_FLAGS_FIXED|VM_FLAGS_OVERWRITE);
+	vm_deallocate(mach_task_self(), page, PAGE_SIZE);
+	//NSLog(@"Reserving space...");
+	//kt = vm_allocate(mach_task_self(), &page, PAGE_SIZE, VM_FLAGS_FIXED|VM_FLAGS_OVERWRITE);
 	if (kt != KERN_SUCCESS) {
-		NSLog(@"Failed reserving sufficient space");
+		//NSLog(@"Failed reserving sufficient space");
 		return KERN_FAILURE;
 	}
-	vm_protect(mach_task_self(), page, PAGE_SIZE, true, VM_PROT_NONE);
+	//NSLog(@"Space reserved");
 	
+	//NSLog(@"Changing protections...");
+	vm_protect(mach_task_self(), page, PAGE_SIZE, true, VM_PROT_NONE);
+	//NSLog(@"Protections changed.");
 #else
 	if (mprotect(page, PAGE_SIZE, PROT_NONE) != 0) {
 		perror("mprotect");
@@ -522,6 +525,8 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 	
 	return KERN_SUCCESS;
 }
+
+
 
 
 

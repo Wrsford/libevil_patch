@@ -727,7 +727,7 @@ kern_return_t evil_override_ptr (void *function, const void *newFunction, void *
 
 
 
-extern void evil_fallback_signal_handler(void (*handler)(int signo)) {
+void evil_fallback_signal_handler(void (*handler)(int signo)) {
 	fallbackHandler = handler;
 }
 

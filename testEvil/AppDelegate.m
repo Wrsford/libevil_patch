@@ -27,7 +27,7 @@
  */
 
 #import "AppDelegate.h"
-#import "libevil.h"
+#import "PureEvilKit/PureEvilKit.h"
 
 void (*orig_NSLog)(NSString *fmt, ...) = NULL;
 
@@ -51,10 +51,11 @@ void my_NSLog (NSString *fmt, ...) {
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    evil_init();
     NSLog(@"Please print this sir prepatch");
-	evil_fallback_signal_handler(&myFallbackHandler);
-    evil_override_ptr(NSLog, my_NSLog, (void **) &orig_NSLog);
+	//evil_fallback_signal_handler(&myFallbackHandler);
+	orig_NSLog = [PEManager overrideFunction:NSLog newFunction:my_NSLog];
+	
+	//evil_override_ptr(, , (void **) &orig_NSLog);
     NSLog(@"Please print this sir");
 	
     

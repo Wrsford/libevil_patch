@@ -13,11 +13,11 @@
 @end
 
 void myFunctionToPatch() {
-	printf("Not patched");
+	printf("Not patched\n");
 }
 
 void myPatch() {
-	printf("Patched");
+	printf("Patched\n");
 }
 
 @implementation PureEvilKitTests
@@ -33,8 +33,12 @@ void myPatch() {
 }
 
 - (void)testPatch {
-	void (*originalFunction)() = [PEManager overrideFunction:myFunctionToPatch newFunction:myPatch];
-	
+	[PEManager sharedEvil];
+	myFunctionToPatch();
+	void (*originalFunction)() = NULL;
+	originalFunction = [PEManager overrideFunction:myFunctionToPatch newFunction:myPatch];
+	NSLog(@"Original function: %p", originalFunction);
+	myFunctionToPatch();
 }
 
 - (void)testUnpatchedPerformance {

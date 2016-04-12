@@ -19,7 +19,6 @@
 		054A294516AB85D100C2B9B6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 054A294416AB85D100C2B9B6 /* Default.png */; };
 		054A294716AB85D100C2B9B6 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054A294616AB85D100C2B9B6 /* Default@2x.png */; };
 		054A294916AB85D100C2B9B6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 054A294816AB85D100C2B9B6 /* Default-568h@2x.png */; };
-		054A294F16AB862A00C2B9B6 /* liblibevil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 054A290116AB71D400C2B9B6 /* liblibevil.a */; };
 		FCAC1CA51CBD70D3004B6BC5 /* PureEvilKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CA41CBD70D3004B6BC5 /* PureEvilKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FCAC1CAC1CBD70D4004B6BC5 /* PureEvilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */; };
 		FCAC1CB31CBD70D4004B6BC5 /* PureEvilKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CB21CBD70D4004B6BC5 /* PureEvilKitTests.m */; };
@@ -138,7 +137,6 @@
 				FCAC1CB71CBD70D4004B6BC5 /* PureEvilKit.framework in Frameworks */,
 				054A293516AB85D100C2B9B6 /* Foundation.framework in Frameworks */,
 				054A293716AB85D100C2B9B6 /* CoreGraphics.framework in Frameworks */,
-				054A294F16AB862A00C2B9B6 /* liblibevil.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +355,7 @@
 		054A28F816AB71D400C2B9B6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Landon Fuller";
 				TargetAttributes = {
 					FCAC1CA11CBD70D3004B6BC5 = {
@@ -365,7 +363,6 @@
 					};
 					FCAC1CAA1CBD70D4004B6BC5 = {
 						CreatedOnToolsVersion = 7.3;
-						TestTargetID = 054A293116AB85D100C2B9B6;
 					};
 				};
 			};
@@ -500,6 +497,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -572,8 +570,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "testEvil/testEvil-Prefix.pch";
 				INFOPLIST_FILE = "testEvil/testEvil-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.bikemonkey.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -591,9 +591,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "testEvil/testEvil-Prefix.pch";
 				INFOPLIST_FILE = "testEvil/testEvil-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.bikemonkey.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -712,7 +714,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/testEvil.app/testEvil";
 			};
 			name = Debug;
 		};
@@ -745,7 +746,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/testEvil.app/testEvil";
 			};
 			name = Release;
 		};
