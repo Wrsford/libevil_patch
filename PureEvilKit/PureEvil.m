@@ -572,7 +572,3 @@ void (*fallbackSignalHandler)(int signo) = baseFallback;
 }
 
 @end
-
-@implementation PEImageMap
-
-@end

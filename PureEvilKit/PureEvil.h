@@ -131,12 +131,3 @@ extern void (*fallbackSignalHandler)(int signo);
 + (BOOL)iterateMachOSegmentsWithHeader:(const void *)header block:(void (^)(const char segname[16], uint64_t vmaddr, uint64_t vmsize, BOOL *cont))block;
 
 @end
-
-@interface PEImageMap : NSObject
-
-@property (nonatomic) uint64_t originalAddress;
-@property (nonatomic) int64_t offset;
-@property (nonatomic) uint64_t size;
-
-@end
-
