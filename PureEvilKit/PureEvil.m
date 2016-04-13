@@ -1,9 +1,37 @@
+/*
+ * Author: Landon Fuller <landonf@bikemonkey.org>
+ *
+ * Copyright (c) 2013 Landon Fuller <landonf@bikemonkey.org>.
+ * All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 //
 //  PureEvil.m
 //  libevil
 //
 //  Created by Will Stafford on 4/12/16.
-//  Copyright © 2016 Landon Fuller. All rights reserved.
+//  Copyright © 2016 Will Stafford. All rights reserved.
 //
 
 #import "PureEvil.h"
@@ -21,26 +49,7 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	
 	
 	__uint64_t	*rax = &ctx->__ss.__rax;
-	//	__uint64_t	*rbx = &ctx->__ss.__rbx;
-	//	__uint64_t	*rcx = &ctx->__ss.__rcx;
-	//	__uint64_t	*rdx = &ctx->__ss.__rdx;
-	//	__uint64_t	*rdi = &ctx->__ss.__rdi;
-	//	__uint64_t	*rsi = &ctx->__ss.__rsi;
-	//	__uint64_t	*rbp = &ctx->__ss.__rbp;
-	//	__uint64_t	*rsp = &ctx->__ss.__rsp;
-	//	__uint64_t	*r8 = &ctx->__ss.__r8;
-	//	__uint64_t	*r9 = &ctx->__ss.__r9;
-	//	__uint64_t	*r10 = &ctx->__ss.__r10;
-	//	__uint64_t	*r11 = &ctx->__ss.__r11;
-	//	__uint64_t	*r12 = &ctx->__ss.__r12;
-	//	__uint64_t	*r13 = &ctx->__ss.__r13;
-	//	__uint64_t	*r14 = &ctx->__ss.__r14;
-	//	__uint64_t	*r15 = &ctx->__ss.__r15;
 	__uint64_t	*rip = &ctx->__ss.__rip;
-	//	__uint64_t	*rflags = &ctx->__ss.__rflags;
-	//	__uint64_t	*cs = &ctx->__ss.__cs;
-	//	__uint64_t	*fs = &ctx->__ss.__fs;
-	//	__uint64_t	*gs = &ctx->__ss.__gs;
 	
 	uintptr_t pc = *rip;
 	
@@ -109,8 +118,6 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 #ifdef EVIL_INTEL32
 void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	PEManager *evil = [PEManager sharedEvil];
-	NSUInteger patch_count = evil.patches.count;
-	NSArray *patches = evil.patches;
 	
 	ucontext_t *uap = uapVoid;
 	typeof(uap->uc_mcontext) ctx = uap->uc_mcontext;
@@ -129,7 +136,7 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 		
 		for (PEPatch *patch in evil.patches) {
 			if (pc >= patch.originalAddress && pc < (patch.originalAddress + patch.mappedSize)) {
-				*eip = patch.newAddress + (pc - patch.originalAddress);
+				*eip = (typeof(pc))patch.newAddress + (pc - (typeof(pc))patch.originalAddress);
 				return;
 			}
 		}
@@ -159,28 +166,19 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 				didMatchPatch = true;
 			}
 		}
-		
-		//		uintptr_t rv = uap->uc_mcontext->__ss.__lr;
-		//		if (rv == (uintptr_t) info->si_addr) {
-		//			uap->uc_mcontext->__ss.__lr += p->new_addr - p->orig_addr;
-		//			if (p->new_addr > p->orig_addr)
-		//				uap->uc_mcontext->__ss.__lr -= p->new_addr - p->orig_addr;
-		//			else
-		//				uap->uc_mcontext->__ss.__lr += p->orig_addr - p->new_addr;
-		//		}
 	}
 	
-	//	if (!didMatchPatch && fallbackHandler)
-	//	{
-	//		fallbackHandler(signo);
-	//	}
+	if (!didMatchPatch)
+	{
+		fallbackSignalHandler(signo);
+	}
 	
 	return;
 }
 #endif
 
 #ifdef EVIL_ARMV7
-static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
+void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	ucontext_t *uap = uapVoid;
 	typeof(uap->uc_mcontext) ctx = uap->uc_mcontext;
 	
@@ -256,9 +254,9 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 		}
 	}
 	
-	if (!didMatchPatch && fallbackHandler)
+	if (!didMatchPatch)
 	{
-		fallbackHandler(signo);
+		fallbackSignalHandler(signo);
 	}
 	else
 	{
@@ -272,7 +270,7 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 #endif
 
 #ifdef EVIL_ARM64
-static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
+void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	ucontext_t *uap = uapVoid;
 	typeof(uap->uc_mcontext) ctx = uap->uc_mcontext;
 	
@@ -338,9 +336,191 @@ static void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 }
 #endif
 
+PureEvil* sharedDarkness;
+
+@implementation PureEvil
+
+- (id)init {
+	self = [super init];
+	
+	self.mappedImages = [NSMutableArray new];
+	
+	return self;
+}
+
++ (instancetype)sharedEvil
+{
+	if (!sharedDarkness) {
+		sharedDarkness = [self new];
+	}
+	
+	return sharedDarkness;
+}
+
+void baseFallback(int signo) {
+	raise(signo);
+}
+
+void (*fallbackSignalHandler)(int signo) = baseFallback;
+
++ (void)setFallbackHandler:(void (*)(int signo))fallback
+{
+	fallbackSignalHandler = fallback;
+}
 
 
-BOOL macho_iterate_segments (const void *header, void (^block)(const char segname[16], vm_address_t vmaddr, vm_size_t vmsize, BOOL *cont)) {
++ (kern_return_t)overrideFunction:(void*)targetFunction
+					  newFunction:(const void*)newFunction
+		 originalFunctionCallable:(void**)originalRentry
+{
+	extern void *_sigtramp;
+	/// Return value
+	__block kern_return_t returnValue;
+	
+	/// The page for the target function
+	vm_address_t page = trunc_page((vm_address_t) targetFunction);
+	
+	/// Not sure what this assertion is doing
+	assert(page != trunc_page((vm_address_t) _sigtramp));
+	
+	/* Determine the Mach-O image and size. */
+	
+	/// Will be filled with the target function's page info.
+	Dl_info dlinfo;
+	
+	/// Fill and check for error
+	if (dladdr(targetFunction, &dlinfo) == 0) {
+		EVILog(@"dladdr() failed: %s", dlerror());
+		return KERN_FAILURE;
+	}
+	
+	__block uint64_t image_addr = (vm_address_t) dlinfo.dli_fbase;
+	__block uint64_t image_end = image_addr;
+	__block uint64_t image_slide = 0x0;
+	
+	bool ret = [PureEvil iterateMachOSegmentsWithHeader:dlinfo.dli_fbase block:^(const char segname[16], uint64_t vmaddr, uint64_t vmsize, BOOL *cont) {
+		if (vmaddr + vmsize > image_end)
+			image_end = vmaddr + vmsize;
+		
+		if (image_addr == image_end) {
+			image_end += vmsize;
+		}
+		
+		// compute the slide. we could also get this iterating the images via dyld, but whatever.
+		if (strcmp(segname, SEG_TEXT) == 0) {
+			if (vmaddr < image_addr)
+				image_slide = image_addr - vmaddr;
+			else
+				image_slide = vmaddr - image_addr;
+		}
+		
+	}];
+	
+	uint64_t image_size = image_end - image_addr;
+	
+	if (!ret) {
+		EVILog(@"Failed parsing Mach-O header");
+		return KERN_FAILURE;
+	}
+	
+	/* Allocate a single contigious block large enough for our purposes */
+	vm_address_t target = 0x0;
+	returnValue = vm_allocate(mach_task_self(), &target, (vm_size_t) image_size, VM_FLAGS_ANYWHERE);
+	
+	// Check for failure
+	if (returnValue != KERN_SUCCESS) {
+		EVILog(@"Failed reserving sufficient space");
+		return KERN_FAILURE;
+	}
+	
+	/* Remap the segments into place */
+	[PureEvil iterateMachOSegmentsWithHeader:dlinfo.dli_fbase block:^(const char *segname, uint64_t vmaddr, uint64_t vmsize, BOOL *cont) {
+		EVILog(@"Iterating segs. vmsize: %llu", vmsize);
+		if (vmsize == 0)
+			return;
+		
+		uint64_t seg_source = vmaddr + image_slide;
+		uint64_t seg_target = target + (seg_source - image_addr);
+		
+		vm_prot_t cprot, mprot;
+		EVILog(@"Remapping...");
+		returnValue = vm_remap(mach_task_self(),
+							   (vm_address_t *) &seg_target,
+							   (vm_size_t) vmsize,
+							   0x0,
+							   VM_FLAGS_FIXED|VM_FLAGS_OVERWRITE,
+							   mach_task_self(),
+							   (vm_address_t) seg_source,
+							   false,
+							   &cprot,
+							   &mprot,
+							   VM_INHERIT_SHARE);
+		EVILog(@"Done remapping.");
+		if (returnValue != KERN_SUCCESS) {
+			*cont = false;
+			return;
+		}
+	}];
+	
+	
+	
+	if (returnValue != KERN_SUCCESS) {
+		EVILog(@"Failed to remap pages: 0x%x", returnValue);
+		return returnValue;
+	}
+	
+	EVILog(@"Creating patch...");
+	PEPatch *patch = [PEPatch new];
+	patch.originalAddress = image_addr;
+	patch.newAddress = target;
+	patch.mappedSize = image_size;
+	
+	patch.originalFunctionPointer = (uintptr_t) targetFunction;
+	patch.originalFunctionPointer_nthumb = ((uintptr_t) targetFunction) & ~1;
+	patch.newFunctionPointer = (vm_address_t) newFunction;
+	EVILog(@"Patch created.");
+	
+	EVILog(@"Adding patch.");
+	[PEManager addPatch:patch];
+	EVILog(@"Patch added.");
+	
+	// For whatever reason we can't just remove PROT_WRITE with mprotect. It
+	// succeeds, but then doesn't do anything. So instead, we overwrite the
+	// target with a dead page.
+	// There's a race condition between the vm_allocate and vm_protect. One could
+	// probably fix that by allocating elsewhere, setting permissions, and remapping in,
+	// or by mapping in the NULL page.
+#if 0
+	//vm_deallocate(mach_task_self(), page, PAGE_SIZE);
+	EVILog(@"Reserving space...");
+	returnValue = vm_allocate(mach_task_self(), &page, PAGE_SIZE, VM_FLAGS_FIXED|VM_FLAGS_OVERWRITE);
+	if (returnValue != KERN_SUCCESS) {
+		EVILog(@"Failed reserving sufficient space");
+		return KERN_FAILURE;
+	}
+	EVILog(@"Space reserved");
+	
+	EVILog(@"Setting protections...");
+	vm_protect(mach_task_self(), page, PAGE_SIZE, true, VM_PROT_NONE);
+	EVILog(@"Protections changed.");
+#else
+	// Not sure, but this seems to work now.
+	if (mprotect((void *)page, PAGE_SIZE, PROT_NONE) != 0) {
+		perror("mprotect");
+		return KERN_FAILURE;
+	}
+#endif
+	
+	if (originalRentry) {
+		*originalRentry = (void *) (patch.newAddress + (patch.originalFunctionPointer - patch.originalAddress));
+	}
+	
+	
+	return KERN_SUCCESS;
+}
+
++ (BOOL)iterateMachOSegmentsWithHeader:(const void *)header block:(void (^)(const char segname[16], uint64_t vmaddr, uint64_t vmsize, BOOL *cont))block
+{
 	const struct mach_header *header32 = (const struct mach_header *) header;
 	const struct mach_header_64 *header64 = (const struct mach_header_64 *) header;
 	struct load_command *cmd;
@@ -391,147 +571,8 @@ BOOL macho_iterate_segments (const void *header, void (^block)(const char segnam
 	return true;
 }
 
-extern void *_sigtramp;
-
-// Replace 'function' with 'newImp', and return an address at 'originalRentry' that
-// may be used to call the original function.
-kern_return_t evil_override_ptr (void *function, const void *newFunction, void **originalRentry) {
-	__block kern_return_t kt;
-	
-	vm_address_t page = trunc_page((vm_address_t) function);
-	assert(page != trunc_page((vm_address_t) _sigtramp));
-	
-	/* Determine the Mach-O image and size. */
-	Dl_info dlinfo;
-	if (dladdr(function, &dlinfo) == 0) {
-		//NSLog(@"dladdr() failed: %s", dlerror());
-		return KERN_FAILURE;
-	}
-	
-	__block vm_address_t image_addr = (vm_address_t) dlinfo.dli_fbase;
-	__block vm_address_t image_end = image_addr;
-	__block intptr_t image_slide = 0x0;
-	
-	bool ret = macho_iterate_segments(dlinfo.dli_fbase, ^(const char segname[16], vm_address_t vmaddr, vm_size_t vmsize, BOOL *cont) {
-		if (vmaddr + vmsize > image_end)
-			image_end = vmaddr + vmsize;
-		
-		if (image_addr == image_end) {
-			image_end += vmsize;
-		}
-		
-		// compute the slide. we could also get this iterating the images via dyld, but whatever.
-		if (strcmp(segname, SEG_TEXT) == 0) {
-			if (vmaddr < image_addr)
-				image_slide = image_addr - vmaddr;
-			else
-				image_slide = vmaddr - image_addr;
-		}
-		
-	});
-	vm_address_t image_size = image_end - image_addr;
-	
-	if (!ret) {
-		//NSLog(@"Failed parsing Mach-O header");
-		return KERN_FAILURE;
-	}
-	
-	/* Allocate a single contigious block large enough for our purposes */
-	vm_address_t target = 0x0;
-	//NSLog(@"image_size: %lu", image_size);
-	kt = vm_allocate(mach_task_self(), &target, image_size, VM_FLAGS_ANYWHERE);
-	if (kt != KERN_SUCCESS) {
-		//NSLog(@"Failed reserving sufficient space");
-		return KERN_FAILURE;
-	}
-	
-	/* Remap the segments into place */
-	macho_iterate_segments(dlinfo.dli_fbase, ^(const char segname[16], vm_address_t vmaddr, vm_size_t vmsize, BOOL *cont) {
-		//NSLog(@"Iterating segs. vmsize: %lu", vmsize);
-		if (vmsize == 0)
-			return;
-		
-		vm_address_t seg_source = vmaddr + image_slide;
-		vm_address_t seg_target = target + (seg_source - image_addr);
-		
-		vm_prot_t cprot, mprot;
-		//NSLog(@"Remapping...");
-		kt = vm_remap(mach_task_self(),
-					  &seg_target,
-					  vmsize,
-					  0x0,
-					  VM_FLAGS_FIXED|VM_FLAGS_OVERWRITE,
-					  mach_task_self(),
-					  seg_source,
-					  false,
-					  &cprot,
-					  &mprot,
-					  VM_INHERIT_SHARE);
-		//NSLog(@"Done remapping.");
-		if (kt != KERN_SUCCESS) {
-			*cont = false;
-			return;
-		}
-	});
-	
-	if (kt != KERN_SUCCESS) {
-		//NSLog(@"Failed to remap pages: %x", kt);
-		return kt;
-	}
-	
-	//NSLog(@"Creating patch...");
-	PEPatch *patch = [PEPatch new];
-	patch.originalAddress = image_addr;
-	patch.newAddress = target;
-	patch.mappedSize = image_size;
-	
-	patch.originalFunctionPointer = (uintptr_t) function;
-	patch.originalFunctionPointer_nthumb = ((uintptr_t) function) & ~1;
-	patch.newFunctionPointer = (vm_address_t) newFunction;
-	//NSLog(@"Patch created.");
-	
-	//NSLog(@"Adding patch.");
-	[PEManager addPatch:patch];
-	//NSLog(@"Patch added.");
-	
-	// For whatever reason we can't just remove PROT_WRITE with mprotect. It
-	// succeeds, but then doesn't do anything. So instead, we overwrite the
-	// target with a dead page.
-	// There's a race condition between the vm_allocate and vm_protect. One could
-	// probably fix that by allocating elsewhere, setting permissions, and remapping in,
-	// or by mapping in the NULL page.
-#if 1
-	vm_deallocate(mach_task_self(), page, PAGE_SIZE);
-	//NSLog(@"Reserving space...");
-	//kt = vm_allocate(mach_task_self(), &page, PAGE_SIZE, VM_FLAGS_FIXED|VM_FLAGS_OVERWRITE);
-	if (kt != KERN_SUCCESS) {
-		//NSLog(@"Failed reserving sufficient space");
-		return KERN_FAILURE;
-	}
-	//NSLog(@"Space reserved");
-	
-	//NSLog(@"Changing protections...");
-	vm_protect(mach_task_self(), page, PAGE_SIZE, true, VM_PROT_NONE);
-	//NSLog(@"Protections changed.");
-#else
-	if (mprotect(page, PAGE_SIZE, PROT_NONE) != 0) {
-		perror("mprotect");
-		return KERN_FAILURE;
-	}
-#endif
-	
-	if (originalRentry)
-		*originalRentry = (void *) (patch.newAddress + (patch.originalFunctionPointer - patch.originalAddress));
-	
-	return KERN_SUCCESS;
-}
-
-
-
-
-
-@implementation PureEvil
-
 @end
 
+@implementation PEImageMap
 
+@end

@@ -234,16 +234,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		FCAC1CA31CBD70D3004B6BC5 /* PureEvilKit */ = {
+		FC50C1F11CBE7F1E00BE8D25 /* Abstracted */ = {
 			isa = PBXGroup;
 			children = (
-				FCAC1CA41CBD70D3004B6BC5 /* PureEvilKit.h */,
 				FCAC1CC41CBD7143004B6BC5 /* PEPatch.h */,
 				FCAC1CC51CBD7143004B6BC5 /* PEPatch.m */,
 				FCAC1CC01CBD7114004B6BC5 /* PEManager.h */,
 				FCAC1CC11CBD7114004B6BC5 /* PEManager.m */,
+			);
+			name = Abstracted;
+			sourceTree = "<group>";
+		};
+		FC50C1F21CBE7F2700BE8D25 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
 				FCAC1CC81CBD764C004B6BC5 /* PureEvil.h */,
 				FCAC1CC91CBD764C004B6BC5 /* PureEvil.m */,
+			);
+			name = Backend;
+			sourceTree = "<group>";
+		};
+		FCAC1CA31CBD70D3004B6BC5 /* PureEvilKit */ = {
+			isa = PBXGroup;
+			children = (
+				FCAC1CA41CBD70D3004B6BC5 /* PureEvilKit.h */,
+				FC50C1F11CBE7F1E00BE8D25 /* Abstracted */,
+				FC50C1F21CBE7F2700BE8D25 /* Backend */,
 				FCAC1CA61CBD70D3004B6BC5 /* Info.plist */,
 			);
 			path = PureEvilKit;
@@ -786,6 +802,7 @@
 				FCAC1CBB1CBD70D4004B6BC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FCAC1CBD1CBD70D4004B6BC5 /* Build configuration list for PBXNativeTarget "PureEvilKitTests" */ = {
 			isa = XCConfigurationList;
@@ -794,6 +811,7 @@
 				FCAC1CBF1CBD70D4004B6BC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

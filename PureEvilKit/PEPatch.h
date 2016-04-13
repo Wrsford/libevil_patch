@@ -1,25 +1,41 @@
+/*
+ * Author: Landon Fuller <landonf@bikemonkey.org>
+ *
+ * Copyright (c) 2013 Landon Fuller <landonf@bikemonkey.org>.
+ * All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 //
 //  PEPatch.h
 //  libevil
 //
 //  Created by Will Stafford on 4/12/16.
-//  Copyright © 2016 Landon Fuller. All rights reserved.
+//  Copyright © 2016 Will Stafford. All rights reserved.
 //
 
-#import <signal.h>
-#import <unistd.h>
-#import <dlfcn.h>
-
-#import <sys/mman.h>
-
-#import <sys/ucontext.h>
-
-#import <mach/mach.h>
-#import <mach-o/loader.h>
-
-
 #import <Foundation/Foundation.h>
-
+@class PEImageMap;
 /// Object representing a patch.
 @interface PEPatch : NSObject
 
@@ -37,14 +53,15 @@
  };
  */
 
-@property (nonatomic) vm_address_t	originalAddress;
-@property (nonatomic) vm_address_t	newAddress;
+@property (nonatomic) uint64_t	originalAddress;
+@property (nonatomic) uint64_t	newAddress;
 
-@property (nonatomic) vm_size_t		mappedSize;
+@property (nonatomic) uint64_t	mappedSize;
 
-@property (nonatomic) vm_address_t originalFunctionPointer;
-@property (nonatomic) vm_address_t originalFunctionPointer_nthumb; // low-order bit masked
-@property (nonatomic) vm_address_t newFunctionPointer;
+@property (nonatomic) uint64_t originalFunctionPointer;
+@property (nonatomic) uint64_t originalFunctionPointer_nthumb; // low-order bit masked
+@property (nonatomic) uint64_t newFunctionPointer;
 
+@property (nonatomic, retain)	PEImageMap *imageMap;
 
 @end
