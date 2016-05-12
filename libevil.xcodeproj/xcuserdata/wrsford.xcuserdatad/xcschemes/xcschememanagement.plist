@@ -19,6 +19,16 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>PureEvilTester Debug.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>PureEvilTester.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>libevil.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -48,6 +58,16 @@
 			<true/>
 		</dict>
 		<key>FCAC1CAA1CBD70D4004B6BC5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCCAD0101CE4BF3B008BFB08</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FCCAD0281CE4BF3C008BFB08</key>
 		<dict>
 			<key>primary</key>
 			<true/>

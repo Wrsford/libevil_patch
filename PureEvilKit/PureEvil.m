@@ -179,30 +179,26 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 
 #ifdef EVIL_ARMV7
 void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
+	PEManager *evil = [PEManager sharedEvil];
+	
 	ucontext_t *uap = uapVoid;
 	typeof(uap->uc_mcontext) ctx = uap->uc_mcontext;
 	
-	typeof(ctx->__ss.__pc)	*r = (typeof(ctx->__ss.__pc) *) &ctx->__ss.__r;
-	typeof(ctx->__ss.__pc)	*pcPtr = &ctx->__ss.__pc;
+	unsigned int	*eax = ctx->__ss.__r;
+	unsigned int	*eip = &ctx->__ss.__pc;
 	
-	unsigned int pc = *pcPtr;
-	
-	ctx->__es.__far = 0x0;
-	ctx->__es.__fsr = 0x02000000;
-	ctx->__es.__exception = 0x0;
-	
-	if (pc == (typeof(pc)) info->si_addr) {
-		for (int i = 0; i < patch_count; i++) {
-			if (patches[i].orig_fptr_nthumb == pc) {
-				*pcPtr = (typeof(pc)) patches[i].new_fptr;
+	unsigned int pc = *eip;
+	if (pc == (uintptr_t) info->si_addr) {
+		for (PEPatch *patch in evil.patches) {
+			if (patch.originalFunctionPointer_nthumb == pc) {
+				*eip = (uintptr_t) patch.newFunctionPointer;
 				return;
 			}
 		}
 		
-		for (int i = 0; i < patch_count; i++) {
-			struct patch *p = &patches[i];
-			if (pc >= p->orig_addr && pc < (p->orig_addr + p->mapped_size)) {
-				*pcPtr = p->new_addr + (pc - p->orig_addr);
+		for (PEPatch *patch in evil.patches) {
+			if (pc >= patch.originalAddress && pc < (patch.originalAddress + patch.mappedSize)) {
+				*eip = (typeof(pc))patch.newAddress + (pc - (typeof(pc))patch.originalAddress);
 				return;
 			}
 		}
@@ -210,59 +206,33 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	
 	BOOL didMatchPatch = false;
 	
+	
 	// This is six kinds of wrong; we're just rewriting any registers that match the si_addr, and
 	// are pointed into now-dead pages. The danger here ought to be obvious.
-	for (int i = 0; i < patch_count; i++) {
-		struct patch *p = &patches[i];
-		
-		if ((typeof(pc)) info->si_addr < p->orig_addr)
+	for (PEPatch *patch in evil.patches) {
+		if ((uintptr_t) info->si_addr < patch.originalAddress)
 			continue;
 		
-		if ((typeof(pc)) info->si_addr >= p->orig_addr + p->mapped_size)
+		if ((uintptr_t) info->si_addr >= patch.originalAddress + patch.mappedSize)
 			continue;
 		
 		// XXX we abuse the r[] array here.
 		for (int i = 0; i < 15; i++) {
-			uintptr_t rv = (r)[i];
+			uintptr_t rv = (eax)[i];
+			
 			if (rv == (uintptr_t) info->si_addr) {
-				if (p->new_addr > p->orig_addr)
-					(r)[i] -= p->new_addr - p->orig_addr;
+				if (patch.newAddress > patch.originalAddress)
+					(eax)[i] -= patch.newAddress - patch.originalAddress;
 				else
-					(r)[i] += p->orig_addr - p->new_addr;
+					(eax)[i] += patch.originalAddress - patch.newAddress;
 				didMatchPatch = true;
 			}
-		}
-		
-		for (int i = 1; i <= 1; i++) {
-			typeof(pc) rv = (pcPtr)[i];
-			if (rv == (typeof(rv)) info->si_addr) {
-				if (p->new_addr > p->orig_addr)
-					(pcPtr)[i] -= p->new_addr - p->orig_addr;
-				else
-					(pcPtr)[i] += p->orig_addr - p->new_addr;
-				didMatchPatch = true;
-			}
-		}
-		
-		uintptr_t rv = uap->uc_mcontext->__ss.__lr;
-		if (rv == (uintptr_t) info->si_addr) {
-			uap->uc_mcontext->__ss.__lr += p->new_addr - p->orig_addr;
-			if (p->new_addr > p->orig_addr)
-				uap->uc_mcontext->__ss.__lr -= p->new_addr - p->orig_addr;
-			else
-				uap->uc_mcontext->__ss.__lr += p->orig_addr - p->new_addr;
 		}
 	}
 	
 	if (!didMatchPatch)
 	{
 		fallbackSignalHandler(signo);
-	}
-	else
-	{
-		ctx->__es.__far = 0x0;
-		ctx->__es.__fsr = 0x02000000;
-		ctx->__es.__exception = 0x0;
 	}
 	
 	return;
@@ -271,24 +241,32 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 
 #ifdef EVIL_ARM64
 void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
+	PEManager *evil = [PEManager sharedEvil];
+	NSUInteger patch_count = evil.patches.count;
+	NSArray *patches = evil.patches;
+	
 	ucontext_t *uap = uapVoid;
 	typeof(uap->uc_mcontext) ctx = uap->uc_mcontext;
 	
-	typeof(ctx->__ss.__pc)	*x = ctx->__ss.__x;
-	typeof(ctx->__ss.__pc)	pc = ctx->__ss.__pc;
 	
-	if (pc == (typeof(pc)) info->si_addr) {
-		for (int i = 0; i < patch_count; i++) {
-			if (patches[i].orig_fptr_nthumb == pc) {
-				pc = (typeof(pc)) patches[i].new_fptr;
+	__uint64_t	*rax = ctx->__ss.__x;
+	__uint64_t	*rip = &ctx->__ss.__pc;
+	
+	uintptr_t pc = *rip;
+	
+	
+	
+	if (pc == (uintptr_t) info->si_addr) {
+		for (PEPatch *patch in evil.patches) {
+			if (patch.originalFunctionPointer_nthumb == pc) {
+				*rip = (uintptr_t) patch.newFunctionPointer;
 				return;
 			}
 		}
 		
-		for (int i = 0; i < patch_count; i++) {
-			struct patch *p = &patches[i];
-			if (pc >= p->orig_addr && pc < (p->orig_addr + p->mapped_size)) {
-				pc = p->new_addr + (pc - p->orig_addr);
+		for (PEPatch *patch in evil.patches) {
+			if (pc >= patch.originalAddress && pc < (patch.originalAddress + patch.mappedSize)) {
+				*rip = patch.newAddress + (pc - patch.originalAddress);
 				return;
 			}
 		}
@@ -296,41 +274,43 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	
 	BOOL didMatchPatch = false;
 	
+	
 	// This is six kinds of wrong; we're just rewriting any registers that match the si_addr, and
 	// are pointed into now-dead pages. The danger here ought to be obvious.
-	for (int i = 0; i < patch_count; i++) {
-		struct patch *p = &patches[i];
-		
-		if ((typeof(pc)) info->si_addr < p->orig_addr)
+	for (PEPatch *patch in evil.patches) {
+		if ((uintptr_t) info->si_addr < patch.originalAddress)
 			continue;
 		
-		if ((typeof(pc)) info->si_addr >= p->orig_addr + p->mapped_size)
+		if ((uintptr_t) info->si_addr >= patch.originalAddress + patch.mappedSize)
 			continue;
 		
 		// XXX we abuse the r[] array here.
 		for (int i = 0; i < 32; i++) {
-			typeof(pc) rv = (x)[i];
+			uintptr_t rv = (rax)[i];
+			
 			if (rv == (uintptr_t) info->si_addr) {
-				if (p->new_addr > p->orig_addr)
-					(x)[i] -= p->new_addr - p->orig_addr;
+				if (patch.newAddress > patch.originalAddress)
+					(rax)[i] -= patch.newAddress - patch.originalAddress;
 				else
-					(x)[i] += p->orig_addr - p->new_addr;
+					(rax)[i] += patch.originalAddress - patch.newAddress;
 				didMatchPatch = true;
 			}
 		}
 		
+		//		uintptr_t rv = uap->uc_mcontext->__ss.__lr;
+		//		if (rv == (uintptr_t) info->si_addr) {
+		//			uap->uc_mcontext->__ss.__lr += p->new_addr - p->orig_addr;
+		//			if (p->new_addr > p->orig_addr)
+		//				uap->uc_mcontext->__ss.__lr -= p->new_addr - p->orig_addr;
+		//			else
+		//				uap->uc_mcontext->__ss.__lr += p->orig_addr - p->new_addr;
+		//		}
 	}
 	
-	if (!didMatchPatch && fallbackHandler)
-	{
-		fallbackHandler(signo);
-	}
-	else
-	{
-		ctx->__es.__far = 0x0;
-		ctx->__es.__esr = 0x02000000;
-		ctx->__es.__exception = 0x0;
-	}
+	//	if (!didMatchPatch && fallbackHandler)
+	//	{
+	//		fallbackHandler(signo);
+	//	}
 	
 	return;
 }
@@ -490,7 +470,7 @@ void (*fallbackSignalHandler)(int signo) = baseFallback;
 	// There's a race condition between the vm_allocate and vm_protect. One could
 	// probably fix that by allocating elsewhere, setting permissions, and remapping in,
 	// or by mapping in the NULL page.
-#if 0
+#if 1
 	//vm_deallocate(mach_task_self(), page, PAGE_SIZE);
 	EVILog(@"Reserving space...");
 	returnValue = vm_allocate(mach_task_self(), &page, PAGE_SIZE, VM_FLAGS_FIXED|VM_FLAGS_OVERWRITE);
@@ -543,7 +523,7 @@ void (*fallbackSignalHandler)(int signo) = baseFallback;
 			break;
 			
 		default:
-			//NSLog(@"Invalid Mach-O header magic value: %x", header32->magic);
+			EVILog(@"Invalid Mach-O header magic value: %x", header32->magic);
 			return false;
 	}
 	

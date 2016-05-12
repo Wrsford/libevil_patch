@@ -28,18 +28,20 @@
 		FCAC1CC31CBD7114004B6BC5 /* PEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CC11CBD7114004B6BC5 /* PEManager.m */; };
 		FCAC1CC61CBD7143004B6BC5 /* PEPatch.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CC41CBD7143004B6BC5 /* PEPatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FCAC1CC71CBD7143004B6BC5 /* PEPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CC51CBD7143004B6BC5 /* PEPatch.m */; };
-		FCAC1CCA1CBD764C004B6BC5 /* PureEvil.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CC81CBD764C004B6BC5 /* PureEvil.h */; };
+		FCAC1CCA1CBD764C004B6BC5 /* PureEvil.h in Headers */ = {isa = PBXBuildFile; fileRef = FCAC1CC81CBD764C004B6BC5 /* PureEvil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FCAC1CCB1CBD764C004B6BC5 /* PureEvil.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC1CC91CBD764C004B6BC5 /* PureEvil.m */; };
+		FCCAD0151CE4BF3B008BFB08 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCAD0141CE4BF3B008BFB08 /* main.m */; };
+		FCCAD0181CE4BF3B008BFB08 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCAD0171CE4BF3B008BFB08 /* AppDelegate.m */; };
+		FCCAD01B1CE4BF3B008BFB08 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCAD01A1CE4BF3B008BFB08 /* ViewController.m */; };
+		FCCAD01E1CE4BF3B008BFB08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCCAD01C1CE4BF3B008BFB08 /* Main.storyboard */; };
+		FCCAD0201CE4BF3B008BFB08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCCAD01F1CE4BF3B008BFB08 /* Assets.xcassets */; };
+		FCCAD0231CE4BF3B008BFB08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCCAD0211CE4BF3B008BFB08 /* LaunchScreen.storyboard */; };
+		FCCAD02E1CE4BF3C008BFB08 /* PureEvilTesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCAD02D1CE4BF3C008BFB08 /* PureEvilTesterTests.m */; };
+		FCCAD0361CE4BF4A008BFB08 /* PureEvilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */; };
+		FCCAD0371CE4BF4A008BFB08 /* PureEvilKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		054A294D16AB862500C2B9B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 054A290016AB71D400C2B9B6;
-			remoteInfo = libevil;
-		};
 		FCAC1CAD1CBD70D4004B6BC5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
@@ -55,6 +57,20 @@
 			remoteInfo = testEvil;
 		};
 		FCAC1CB51CBD70D4004B6BC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCAC1CA11CBD70D3004B6BC5;
+			remoteInfo = PureEvilKit;
+		};
+		FCCAD02A1CE4BF3C008BFB08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCCAD0101CE4BF3B008BFB08;
+			remoteInfo = PureEvilTester;
+		};
+		FCCAD0381CE4BF4A008BFB08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 054A28F816AB71D400C2B9B6 /* Project object */;
 			proxyType = 1;
@@ -81,6 +97,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FCAC1CB81CBD70D4004B6BC5 /* PureEvilKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCCAD03A1CE4BF4B008BFB08 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FCCAD0371CE4BF4A008BFB08 /* PureEvilKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +145,19 @@
 		FCAC1CC51CBD7143004B6BC5 /* PEPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PEPatch.m; sourceTree = "<group>"; };
 		FCAC1CC81CBD764C004B6BC5 /* PureEvil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureEvil.h; sourceTree = "<group>"; };
 		FCAC1CC91CBD764C004B6BC5 /* PureEvil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PureEvil.m; sourceTree = "<group>"; };
+		FCCAD0111CE4BF3B008BFB08 /* PureEvilTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PureEvilTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCCAD0141CE4BF3B008BFB08 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FCCAD0161CE4BF3B008BFB08 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FCCAD0171CE4BF3B008BFB08 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FCCAD0191CE4BF3B008BFB08 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FCCAD01A1CE4BF3B008BFB08 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FCCAD01D1CE4BF3B008BFB08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FCCAD01F1CE4BF3B008BFB08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FCCAD0221CE4BF3B008BFB08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FCCAD0241CE4BF3B008BFB08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCCAD0291CE4BF3C008BFB08 /* PureEvilTesterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PureEvilTesterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCCAD02D1CE4BF3C008BFB08 /* PureEvilTesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PureEvilTesterTests.m; sourceTree = "<group>"; };
+		FCCAD02F1CE4BF3C008BFB08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +195,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCCAD00E1CE4BF3B008BFB08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCCAD0361CE4BF4A008BFB08 /* PureEvilKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCCAD0261CE4BF3C008BFB08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -165,6 +220,8 @@
 				054A293816AB85D100C2B9B6 /* testEvil */,
 				FCAC1CA31CBD70D3004B6BC5 /* PureEvilKit */,
 				FCAC1CB11CBD70D4004B6BC5 /* PureEvilKitTests */,
+				FCCAD0121CE4BF3B008BFB08 /* PureEvilTester */,
+				FCCAD02C1CE4BF3C008BFB08 /* PureEvilTesterTests */,
 				054A290316AB71D400C2B9B6 /* Frameworks */,
 				054A290216AB71D400C2B9B6 /* Products */,
 			);
@@ -177,6 +234,8 @@
 				054A293216AB85D100C2B9B6 /* testEvil.app */,
 				FCAC1CA21CBD70D3004B6BC5 /* PureEvilKit.framework */,
 				FCAC1CAB1CBD70D4004B6BC5 /* PureEvilKitTests.xctest */,
+				FCCAD0111CE4BF3B008BFB08 /* PureEvilTester.app */,
+				FCCAD0291CE4BF3C008BFB08 /* PureEvilTesterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,6 +333,39 @@
 			path = PureEvilKitTests;
 			sourceTree = "<group>";
 		};
+		FCCAD0121CE4BF3B008BFB08 /* PureEvilTester */ = {
+			isa = PBXGroup;
+			children = (
+				FCCAD0161CE4BF3B008BFB08 /* AppDelegate.h */,
+				FCCAD0171CE4BF3B008BFB08 /* AppDelegate.m */,
+				FCCAD0191CE4BF3B008BFB08 /* ViewController.h */,
+				FCCAD01A1CE4BF3B008BFB08 /* ViewController.m */,
+				FCCAD01C1CE4BF3B008BFB08 /* Main.storyboard */,
+				FCCAD01F1CE4BF3B008BFB08 /* Assets.xcassets */,
+				FCCAD0211CE4BF3B008BFB08 /* LaunchScreen.storyboard */,
+				FCCAD0241CE4BF3B008BFB08 /* Info.plist */,
+				FCCAD0131CE4BF3B008BFB08 /* Supporting Files */,
+			);
+			path = PureEvilTester;
+			sourceTree = "<group>";
+		};
+		FCCAD0131CE4BF3B008BFB08 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FCCAD0141CE4BF3B008BFB08 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FCCAD02C1CE4BF3C008BFB08 /* PureEvilTesterTests */ = {
+			isa = PBXGroup;
+			children = (
+				FCCAD02D1CE4BF3C008BFB08 /* PureEvilTesterTests.m */,
+				FCCAD02F1CE4BF3C008BFB08 /* Info.plist */,
+			);
+			path = PureEvilTesterTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -320,7 +412,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				054A294E16AB862500C2B9B6 /* PBXTargetDependency */,
 				FCAC1CB61CBD70D4004B6BC5 /* PBXTargetDependency */,
 			);
 			name = testEvil;
@@ -365,6 +456,43 @@
 			productReference = FCAC1CAB1CBD70D4004B6BC5 /* PureEvilKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FCCAD0101CE4BF3B008BFB08 /* PureEvilTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCCAD0341CE4BF3C008BFB08 /* Build configuration list for PBXNativeTarget "PureEvilTester" */;
+			buildPhases = (
+				FCCAD00D1CE4BF3B008BFB08 /* Sources */,
+				FCCAD00E1CE4BF3B008BFB08 /* Frameworks */,
+				FCCAD00F1CE4BF3B008BFB08 /* Resources */,
+				FCCAD03A1CE4BF4B008BFB08 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCCAD0391CE4BF4A008BFB08 /* PBXTargetDependency */,
+			);
+			name = PureEvilTester;
+			productName = PureEvilTester;
+			productReference = FCCAD0111CE4BF3B008BFB08 /* PureEvilTester.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FCCAD0281CE4BF3C008BFB08 /* PureEvilTesterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCCAD0351CE4BF3C008BFB08 /* Build configuration list for PBXNativeTarget "PureEvilTesterTests" */;
+			buildPhases = (
+				FCCAD0251CE4BF3C008BFB08 /* Sources */,
+				FCCAD0261CE4BF3C008BFB08 /* Frameworks */,
+				FCCAD0271CE4BF3C008BFB08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCCAD02B1CE4BF3C008BFB08 /* PBXTargetDependency */,
+			);
+			name = PureEvilTesterTests;
+			productName = PureEvilTesterTests;
+			productReference = FCCAD0291CE4BF3C008BFB08 /* PureEvilTesterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -380,6 +508,13 @@
 					FCAC1CAA1CBD70D4004B6BC5 = {
 						CreatedOnToolsVersion = 7.3;
 					};
+					FCCAD0101CE4BF3B008BFB08 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					FCCAD0281CE4BF3C008BFB08 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = FCCAD0101CE4BF3B008BFB08;
+					};
 				};
 			};
 			buildConfigurationList = 054A28FB16AB71D400C2B9B6 /* Build configuration list for PBXProject "libevil" */;
@@ -388,6 +523,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 054A28F616AB71D400C2B9B6;
 			productRefGroup = 054A290216AB71D400C2B9B6 /* Products */;
@@ -398,6 +534,8 @@
 				054A293116AB85D100C2B9B6 /* testEvil */,
 				FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */,
 				FCAC1CAA1CBD70D4004B6BC5 /* PureEvilKitTests */,
+				FCCAD0101CE4BF3B008BFB08 /* PureEvilTester */,
+				FCCAD0281CE4BF3C008BFB08 /* PureEvilTesterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -422,6 +560,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FCAC1CA91CBD70D4004B6BC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCCAD00F1CE4BF3B008BFB08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCCAD0231CE4BF3B008BFB08 /* LaunchScreen.storyboard in Resources */,
+				FCCAD0201CE4BF3B008BFB08 /* Assets.xcassets in Resources */,
+				FCCAD01E1CE4BF3B008BFB08 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCCAD0271CE4BF3C008BFB08 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -466,14 +621,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FCCAD00D1CE4BF3B008BFB08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCCAD01B1CE4BF3B008BFB08 /* ViewController.m in Sources */,
+				FCCAD0181CE4BF3B008BFB08 /* AppDelegate.m in Sources */,
+				FCCAD0151CE4BF3B008BFB08 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCCAD0251CE4BF3C008BFB08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCCAD02E1CE4BF3C008BFB08 /* PureEvilTesterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		054A294E16AB862500C2B9B6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 054A290016AB71D400C2B9B6 /* libevil */;
-			targetProxy = 054A294D16AB862500C2B9B6 /* PBXContainerItemProxy */;
-		};
 		FCAC1CAE1CBD70D4004B6BC5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */;
@@ -489,6 +657,16 @@
 			target = FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */;
 			targetProxy = FCAC1CB51CBD70D4004B6BC5 /* PBXContainerItemProxy */;
 		};
+		FCCAD02B1CE4BF3C008BFB08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCCAD0101CE4BF3B008BFB08 /* PureEvilTester */;
+			targetProxy = FCCAD02A1CE4BF3C008BFB08 /* PBXContainerItemProxy */;
+		};
+		FCCAD0391CE4BF4A008BFB08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCAC1CA11CBD70D3004B6BC5 /* PureEvilKit */;
+			targetProxy = FCCAD0381CE4BF4A008BFB08 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -498,6 +676,22 @@
 				054A293C16AB85D100C2B9B6 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FCCAD01C1CE4BF3B008BFB08 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCCAD01D1CE4BF3B008BFB08 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FCCAD0211CE4BF3B008BFB08 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCCAD0221CE4BF3B008BFB08 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -765,6 +959,138 @@
 			};
 			name = Release;
 		};
+		FCCAD0301CE4BF3C008BFB08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilTester/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilTester;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FCCAD0311CE4BF3C008BFB08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilTester/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilTester;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FCCAD0321CE4BF3C008BFB08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilTesterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilTesterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PureEvilTester.app/PureEvilTester";
+			};
+			name = Debug;
+		};
+		FCCAD0331CE4BF3C008BFB08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = PureEvilTesterTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrsford.PureEvilTesterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PureEvilTester.app/PureEvilTester";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -812,6 +1138,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FCCAD0341CE4BF3C008BFB08 /* Build configuration list for PBXNativeTarget "PureEvilTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCCAD0301CE4BF3C008BFB08 /* Debug */,
+				FCCAD0311CE4BF3C008BFB08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FCCAD0351CE4BF3C008BFB08 /* Build configuration list for PBXNativeTarget "PureEvilTesterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCCAD0321CE4BF3C008BFB08 /* Debug */,
+				FCCAD0331CE4BF3C008BFB08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

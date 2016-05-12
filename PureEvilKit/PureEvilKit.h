@@ -34,7 +34,7 @@
 //  Copyright © 2016 Will Stafford. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for PureEvilKit.
 FOUNDATION_EXPORT double PureEvilKitVersionNumber;
@@ -45,5 +45,6 @@ FOUNDATION_EXPORT const unsigned char PureEvilKitVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <PureEvilKit/PublicHeader.h>
 
 
-#import "PEPatch.h"
-#import "PEManager.h"
+#import <PureEvilKit/PEPatch.h>
+#import <PureEvilKit/PEManager.h>
+
