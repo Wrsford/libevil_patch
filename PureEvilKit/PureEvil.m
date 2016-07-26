@@ -38,6 +38,7 @@
 #import "PEManager.h"
 #import "PEPatch.h"
 
+
 #ifdef EVIL_INTEL64
 void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	PEManager *evil = [PEManager sharedEvil];
@@ -89,9 +90,14 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 			
 			if (rv == (uintptr_t) info->si_addr) {
 				if (patch.newAddress > patch.originalAddress)
+				{
 					(rax)[i] -= patch.newAddress - patch.originalAddress;
+				}
 				else
+				{
 					(rax)[i] += patch.originalAddress - patch.newAddress;
+				}
+				
 				didMatchPatch = true;
 			}
 		}
@@ -126,16 +132,22 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 	unsigned int	*eip = &ctx->__ss.__eip;
 	
 	unsigned int pc = *eip;
-	if (pc == (uintptr_t) info->si_addr) {
-		for (PEPatch *patch in evil.patches) {
-			if (patch.originalFunctionPointer_nthumb == pc) {
+	
+	if (pc == (uintptr_t) info->si_addr)
+	{
+		for (PEPatch *patch in evil.patches)
+		{
+			if (patch.originalFunctionPointer_nthumb == pc)
+			{
 				*eip = (uintptr_t) patch.newFunctionPointer;
 				return;
 			}
 		}
 		
-		for (PEPatch *patch in evil.patches) {
-			if (pc >= patch.originalAddress && pc < (patch.originalAddress + patch.mappedSize)) {
+		for (PEPatch *patch in evil.patches)
+		{
+			if (pc >= patch.originalAddress && pc < (patch.originalAddress + patch.mappedSize))
+			{
 				*eip = (typeof(pc))patch.newAddress + (pc - (typeof(pc))patch.originalAddress);
 				return;
 			}
@@ -155,14 +167,21 @@ void page_mapper (int signo, siginfo_t *info, void *uapVoid) {
 			continue;
 		
 		// XXX we abuse the r[] array here.
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 15; i++)
+		{
 			uintptr_t rv = (eax)[i];
 			
-			if (rv == (uintptr_t) info->si_addr) {
+			if (rv == (uintptr_t) info->si_addr)
+			{
 				if (patch.newAddress > patch.originalAddress)
+				{
 					(eax)[i] -= patch.newAddress - patch.originalAddress;
+				}
 				else
+				{
 					(eax)[i] += patch.originalAddress - patch.newAddress;
+				}
+				
 				didMatchPatch = true;
 			}
 		}
@@ -360,7 +379,7 @@ void (*fallbackSignalHandler)(int signo) = baseFallback;
 	/// The page for the target function
 	vm_address_t page = trunc_page((vm_address_t) targetFunction);
 	
-	/// Not sure what this assertion is doing
+	// Not sure what this assertion is doing
 	assert(page != trunc_page((vm_address_t) _sigtramp));
 	
 	/* Determine the Mach-O image and size. */
@@ -374,26 +393,49 @@ void (*fallbackSignalHandler)(int signo) = baseFallback;
 		return KERN_FAILURE;
 	}
 	
+	/* New slide calculation */
+	
+	uint64_t imageCount = _dyld_image_count();
+	uint64_t imageIndex = imageCount;
+	intptr_t imageSlide = 0;
+	for (uint64_t i = 0; i < imageCount; ++i)
+	{
+		const char *iteratedImageName = _dyld_get_image_name(i);
+		if (strcmp(iteratedImageName, dlinfo.dli_fname) == 0)
+		{
+			EVILog(@"Found image!");
+			imageIndex = i;
+			break;
+		}
+		
+	}
+	
+	if (imageIndex >= imageCount)
+	{
+		EVILog(@"Failed find image index!");
+		return KERN_FAILURE;
+	}
+	
+	imageSlide = _dyld_get_image_vmaddr_slide(imageIndex);
+	
+	//dladdr(dlinfo.dli_fbase, &dlinfo);
+	/* END New slide calculation */
+	
 	__block uint64_t image_addr = (vm_address_t) dlinfo.dli_fbase;
 	__block uint64_t image_end = image_addr;
-	__block uint64_t image_slide = 0x0;
+	__block uint64_t image_slide = imageSlide;
 	
-	bool ret = [PureEvil iterateMachOSegmentsWithHeader:dlinfo.dli_fbase block:^(const char segname[16], uint64_t vmaddr, uint64_t vmsize, BOOL *cont) {
+	bool ret = [PureEvil iterateMachOSegmentsWithHeader:dlinfo.dli_fbase
+												  block:^(const char segname[16], uint64_t vmaddr, uint64_t vmsize, BOOL *cont) {
 		if (vmaddr + vmsize > image_end)
+		{
 			image_end = vmaddr + vmsize;
+		}
+		
 		
 		if (image_addr == image_end) {
 			image_end += vmsize;
 		}
-		
-		// compute the slide. we could also get this iterating the images via dyld, but whatever.
-		if (strcmp(segname, SEG_TEXT) == 0) {
-			if (vmaddr < image_addr)
-				image_slide = image_addr - vmaddr;
-			else
-				image_slide = vmaddr - image_addr;
-		}
-		
 	}];
 	
 	uint64_t image_size = image_end - image_addr;

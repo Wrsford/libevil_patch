@@ -45,6 +45,7 @@
 
 #import <mach/mach.h>
 #import <mach-o/loader.h>
+#include <mach-o/dyld.h>
 
 #import <Foundation/Foundation.h>
 #import <TargetConditionals.h>

@@ -19,6 +19,10 @@ void (*orig_NSLog)(NSString *fmt, ...) = NULL;
 
 void myFallbackHandler(int signo) {
 	printf("1. Fallback hit with signal: %d\n", signo);
+	while (true)
+	{
+		sleep(0);
+	}
 	abort();
 }
 
@@ -36,7 +40,7 @@ void my_NSLog (NSString *fmt, ...) {
 double my_pow(double baseNum, double exp)
 {
 	NSLog(@"pow called");
-	return 1337.0;
+	return powf(baseNum, exp);
 }
 
 @implementation AppDelegate
@@ -47,15 +51,23 @@ double my_pow(double baseNum, double exp)
 	// Override point for customization after application launch.
 	NSLog(@"Please print this sir prepatch");
 	NSLog(@"pow(2, 5) = %f", pow(2, 5));
+	printf("NSLog (prepatch): %p\n", NSLog);
 	//evil_fallback_signal_handler(&myFallbackHandler);
+	orig_NSLog = [PEManager overrideFunction:NSLog newFunction:my_NSLog];
 	orig_pow = [PEManager overrideFunction:pow newFunction:my_pow];
+	printf("NSLog: %p\n", NSLog);
+	printf("my_NSLog: %p\n", my_NSLog);
+	printf("orig_NSLog: %p\n", orig_NSLog);
 	
 	//evil_override_ptr(, , (void **) &orig_NSLog);
-	//NSLog(@"Please print this sir postpatch");
+	NSLog(@"Please print this sir postpatch");
+	
+	NSLog(@"pow(2, 5) = %f", pow(2, 5));
+	//double z = orig_pow(2, 5);
 	
 	//NSLog(@"pow(2, 5) = %f", pow(2, 5));
 	
-	//NSLog(@"pow(2, 5) = %f", pow(2, 5));
+	NSLog(@"pow(2, 5) = %f", pow(2, 5));
 	
 	
 	
