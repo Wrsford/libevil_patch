@@ -23,7 +23,8 @@ A fancier implementation would involve performing instruction interpretation fro
 letting the CPU execute from remapped pages. This would involve actually implementing an ARM emulator, which seems
 like drastic overkill for a massive hack.
 
-The implementation only supports ARM, so you can only test it out on your iOS device.
+~~The implementation only supports ARM, so you can only test it out on your iOS device.~~
+>Wrsford's updates provide support for x86_64, ARM (32bit), and aarch64 as of 2016.
 
 Example Usage
 -----------
